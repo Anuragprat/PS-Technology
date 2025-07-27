@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PS Technology</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Modern Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&family=Roboto:400,500,700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    :root {
+      --primary: #144078;
+      --secondary: #28a6c8;
+      --accent: #f5c554;
+      --glass: rgba(250,250,255,0.45);
+      --background: linear-gradient(120deg, #11274a 0%, #3578c0 70%, #f8c967 100%);
+      --text: #212b3b;
+      --gray: #ececec;
+      --white: #fff;
+      font-size: 16px;
+    }
+    body {
+      font-family: 'Montserrat', 'Roboto', Arial, sans-serif;
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      background: var(--background) fixed;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+    /* Decorative animated SVGs for background pop */
+    .decor-bg {
+      position: fixed; top:0; left:0; width: 100vw; height: 100vh;
+      pointer-events: none; z-index:0;
+      opacity:.18;
+      filter: blur(1.5px);
+    }
+    /* Glassmorphic Hero */
+    .hero-glass {
+      background: var(--glass);
+      box-shadow: 0 12px 48px 0 #2a447e32, 0 1.5px 0 rgba(48,50,54,0.05);
+      border-radius: 32px;
+      margin: 0 auto; padding: 48px 19px 56px;
+      max-width: 600px; text-align: center;
+      margin-top: 70px;
+      position: relative; z-index: 2;
+      backdrop-filter: blur(10px);
+      animation: fadein 1s cubic-bezier(.13,.74,.32,1.01);
+    }
+    @keyframes fadein { from{ opacity:0; transform:scale(.96) translateY(-20px);} to{ opacity:1; } }
+    .hero-glass h1 {
+      font-size: clamp(2.2em, 5vw, 3.2em);
+      letter-spacing: 1px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .hero-glass .cta {
+      display: inline-block;
+      margin:32px 0 7px;
+      background: linear-gradient(90deg, var(--secondary) 60%, var(--accent) 110%);
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 700;
+      padding: 13px 37px;
+      border: none; border-radius: 27px;
+      box-shadow: 0 7px 18px #0001;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .16s, background .22s, box-shadow .19s;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact a {
+  color: #102040;      /* Dark navy for better visibility */
+  font-weight: bold;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+.contact a:hover {
+  color: var(--accent);
+}
+
+    .hero-glass .cta:hover {
+      background:linear-gradient(99deg,var(--accent) 10%,var(--secondary) 90%);
+      transform: scale(1.045) translateY(-2px);
+      box-shadow: 0 17px 44px #0003;
+    }
+    nav {
+      display: flex; gap:2vw; justify-content:center; align-items:center;
+      background:rgba(24,64,120,.97); padding:17px 0 13px;
+      box-shadow: 0 4px 20px #0003;
+      position: fixed; width: 100vw; top: 0; z-index: 100;
+      border-bottom:1px solid #22304d2f;
+      font-size: 1.08em;
+    }
+    nav a { color: #fff; text-decoration:none; font-weight:600; padding:0 16px; position:relative;}
+    nav a.active, nav a:focus, nav a:hover { color: var(--accent); }
+    nav a:after { display:block; content:""; height:2.5px; background:var(--accent); width:0; margin:0 auto; transition:width .34s; }
+    nav a.active:after,nav a:focus:after,nav a:hover:after { width:60%; }
+    .main-section { max-width:1100px; margin:110px auto 0 auto; padding:0 5vw 0;}
+    /* Services grid with icons */
+    .services-grid {
+      display: grid;
+      gap: 26px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-bottom: 12px;
+    }
+    .service-card {
+      background:rgba(255,255,255,0.92);
+      border-radius:18px;
+      box-shadow: 0 7px 30px #284c8a1a;
+      padding:33px 19px 19px 19px;
+      text-align: center;
+      position:relative;
+      display:flex; flex-direction:column; align-items:center;
+      transition: transform .18s, box-shadow .14s;
+    }
+    .service-card i { font-size:2.1em; margin-bottom:16px; color:var(--secondary);}
+    .service-card strong {font-size:1.23em; display:block; margin-bottom:8px; color:var(--primary);}
+    .service-card:hover {
+      transform:translateY(-4px) scale(1.04);
+      box-shadow:0 13px 40px #284c8a32;
+    }
+    /* Animated stats/counters */
+    .stats {
+      display: flex; gap: 3vw; justify-content:center; margin:48px 0 12px;
+    }
+    .stat {
+      background:rgba(255,255,255,0.85);
+      border-radius:14px;
+      box-shadow:0 3px 32px #0014;
+      padding:22px 25px;
+      min-width: 120px; text-align:center;
+      animation: fadein 1.2s .6s backwards;
+    }
+    .stat strong { display:block; font-size:2.4em; color:var(--primary);}
+    .stat span { font-size:1.09em; color:var(--secondary);}
+    /* Review carousel with picture (simplified) */
+    .reviews {
+      background:rgba(255,253,230,.98);
+      border-radius:13px;
+      box-shadow: 0 2px 34px #0001;
+      max-width:510px; margin:0 auto; text-align:center;
+      padding:38px 22px 32px 22px; position:relative;
+    }
+    .review-avatar { width:54px;height:54px;border-radius:50%;border:2.5px solid var(--accent);object-fit:cover; margin-bottom:9px;}
+    .review-stars { color:#fc0;font-size:1.34em; font-weight:700; }
+    .carousel-nav {
+      position:absolute; right:23px; top:19px; display:flex; gap:7px;
+    }
+    .carousel-btn {
+      background:var(--accent); color:var(--primary); border:none;
+      border-radius:45%; padding:3px 10px; font-size:1.06em; font-weight:700; box-shadow:0 2px 7px #0002; cursor:pointer; transition:background .17s;
+    }
+    .carousel-btn:hover { background:var(--primary); color:var(--accent);}
+    /* Floating contact button */
+    .float-contact {
+      position:fixed; right:18px; bottom:22px; z-index:1300;
+      background:linear-gradient(90deg,var(--secondary),var(--accent));
+      color:#fff; padding:13px 24px; border-radius:30px 30px 8px 30px;
+      font-weight:700; box-shadow:0 6px 30px #0003; border:none; cursor:pointer; font-size:1.17em; animation:bounce 1.8s infinite alternate;
+    }
+    @keyframes bounce {from{ transform:translateY(0);} to{ transform:translateY(-9px);}}
+    /* Footer */
+    footer { background:#132a46; color:#eee; text-align:center; padding:19px 9px 14px; font-size:1em;}
+    @media (max-width:600px){ .main-section,.stats{flex-direction:column;gap:13px;}.stats{gap:16px;}footer{font-size:.93em;}}
+  </style>
+</head>
+<body>
+  <svg class="decor-bg" viewBox="0 0 1400 900" preserveAspectRatio="none">
+    <defs>
+      <radialGradient id="bgGrad1" cx="60%" cy="0%" r="60%">
+        <stop stop-color="#e9a9fc" stop-opacity="1" offset="0%"/>
+        <stop stop-color="#297fa7" stop-opacity=".1" offset="95%"/>
+      </radialGradient>
+      <radialGradient id="bgGrad2" cx="89%" cy="40%" r="80%">
+        <stop stop-color="#f9bc60" stop-opacity="1" offset="0%"/>
+        <stop stop-color="#3578c011" stop-opacity="0" offset="95%"/>
+      </radialGradient>
+    </defs>
+    <ellipse cx="700" cy="170" rx="480" ry="180" fill="url(#bgGrad1)"/>
+    <ellipse cx="1050" cy="550" rx="300" ry="95" fill="url(#bgGrad2)"/>
+  </svg>
+  <nav>
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="home" class="hero-glass">
+    <h1>Premium Solutions. Global Reach.<br><span style="font-size:.55em;color:#297fa7">PS Technology</span></h1>
+    <p>We are an <strong>authorized Tata Communications seller</strong> empowering businesses worldwide<span style="color:var(--accent);font-weight:700">.</span></p>
+    <a href="#contact" class="cta">Contact Us Now</a>
+  </section>
+
+  <div class="main-section">
+    <div class="stats">
+      <div class="stat"><strong id="statClients">0</strong><span>Clients</span></div>
+      <div class="stat"><strong id="statCountries">0</strong><span>Countries Served</span></div>
+      <div class="stat"><strong id="statYears">0</strong><span>Years Experience</span></div>
+    </div>
+
+    <section id="about" class="about">
+      <h2>About Us</h2>
+      <p>
+        PS Technology is your trusted global connectivity and digital services partner. As an <strong>authorized seller for Tata Communications</strong>, we offer industry-leading solutions—networking, cloud, security, collaboration, and more—serving clients across continents. Our commitment: <em>Reliability. Agility. Customer-first support.</em>
+      </p>
+    </section>
+    <section id="services" class="services">
+      <h2>Our Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <i class="fa-solid fa-network-wired"></i>
+          <strong>Network Services</strong>
+          <div>Enterprise Internet, MPLS, SD-WAN, Ethernet, and Leased Lines anywhere, powered by Tata Communications.</div>
+        </div>
+        <div class="service-card">
+          <i class="fa-solid fa-comments"></i>
+          <strong>Unified Communications</strong>
+          <div>UCaaS, video conferencing, and collaboration for the modern distributed workforce.</div>
+        </div>
+        <div class="service-card">
+          <i class="fa-solid fa-shield-halved"></i>
+          <strong>Cybersecurity</strong>
+          <div>Managed Firewalls, SASE, DDoS Protection, and global threat detection.</div>
+        </div>
+        <div class="service-card">
+          <i class="fa-solid fa-server"></i>
+          <strong>Managed Services</strong>
+          <div>End-to-end network/security management and 24/7 support.</div>
+        </div>
+      
+        <div class="service-card">
+          <i class="fa-solid fa-photo-film"></i>
+          <strong>Media & Entertainment</strong>
+          <div>Global media transmission, video networks, and broadcasting for studios and agencies.</div>
+        </div>
+      </div>
+    </section>
+    <section id="reviews" class="reviews">
+      <div class="carousel-nav">
+        <button class="carousel-btn" id="prevReview">&lt;</button>
+        <button class="carousel-btn" id="nextReview">&gt;</button>
+      </div>
+      <h2>Customer Reviews</h2>
+      <img class="review-avatar" id="review-avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="User profile" loading="lazy">
+      <div class="review-stars" id="review-stars">★★★★★</div>
+      <blockquote id="review-text" style="margin:9px 0 5px;font-size:1.12em;">Fantastic, hassle-free installation and quick support.</blockquote>
+      <div class="review-user" id="review-user">– A. Sharma, Andheri</div>
+    </section>
+    <section id="contact" class="contact">
+      <h2>Contact & Offices</h2>
+      <p><b>Andheri Office:</b><br>Andheri East, Mumbai, Maharashtra</p>
+      <p><b>Malad Office:</b><br>Malad East, Mumbai, Maharashtra</p>
+      <p><b>Mira Road Office:</b><br>Mira Road East, Mumbai, Maharashtra</p>
+      <p><b>Phone:</b> <a href="tel:+919136065467">+91 9136065467</a></p>
+      <p><b>Email:</b> <a href="mailto:info@pstcommunications.com">info@pstcommunications.com</a></p>
+    </section>
+  </div>
+  <button class="float-contact" onclick="window.location='#contact'">📞 Contact Us!</button>
+  <footer>&copy; 2025 PS Technology. All Rights Reserved.</footer>
+  <script>
+    // Navbar highlighting
+    const navLinks = document.querySelectorAll('nav a');
+    window.addEventListener('scroll', () => {
+      const pos = window.scrollY||window.pageYOffset;
+      document.querySelectorAll('section,id,[id]').forEach(sec => {
+        if(typeof sec.id==='string') {
+          const el = document.getElementById(sec.id);
+          if(el){
+            const top = el.offsetTop-93, height = el.offsetHeight;
+            if(pos >= top && pos < top+height){
+              navLinks.forEach(link=>link.classList.remove('active'));
+              const link = Array.from(navLinks).find(a=>a.getAttribute('href')==="#"+el.id)
+              if(link) link.classList.add('active');
+            }
+          }
+        }
+      })
+    });
+
+    // Animated counters
+    function animateStat(el, val){ let n=0; const final=+val;
+      function step(){if(n<final){el.textContent=n++; setTimeout(step,15);} else {el.textContent=final;}}
+      step();
+    }
+    window.addEventListener('DOMContentLoaded',()=>{
+      animateStat(document.getElementById('statClients'),4289232);
+      animateStat(document.getElementById('statCountries'),18);
+      animateStat(document.getElementById('statYears'),9);
+    });
+
+    const reviews = [
+      { stars:5, text:"Fantastic, hassle-free installation and quick support.", user:"A. Sharma, Andheri", avatar:"https://randomuser.me/api/portraits/women/25.jpg" },
+      { stars:4, text:"Wide range of products. Delivery was timely. Will buy again!", user:"K. Mehta, Mira Road", avatar:"https://randomuser.me/api/portraits/men/33.jpg" },
+      { stars:5, text:"Knowledgeable staff and superb after-sales service.", user:"S. Jain, Mumbai", avatar:"https://randomuser.me/api/portraits/men/11.jpg" },
+      { stars:5, text:"Tata-powered connectivity helped us scale globally.", user:"Tech Solutions Pvt Ltd", avatar:"https://randomuser.me/api/portraits/men/75.jpg" },
+    ];
+    let reviewIdx=0;
+    function showReview(idx){
+      const r=reviews[idx];
+      document.getElementById('review-avatar').src = r.avatar;
+      document.getElementById('review-stars').textContent = "★".repeat(r.stars)+"☆".repeat(5-r.stars);
+      document.getElementById('review-text').textContent = r.text;
+      document.getElementById('review-user').textContent = "– "+r.user;
+    }
+    showReview(0);
+    document.getElementById('nextReview').onclick=()=>{reviewIdx=(reviewIdx+1)%reviews.length;showReview(reviewIdx);}
+    document.getElementById('prevReview').onclick=()=>{reviewIdx=(reviewIdx-1+reviews.length)%reviews.length;showReview(reviewIdx);}
+  </script>
+</body>
+</html>
